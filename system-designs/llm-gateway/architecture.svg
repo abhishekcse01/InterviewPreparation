@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#475569"/>
+    </marker>
+  </defs>
+  <rect width="1000" height="700" fill="#ffffff"/>
+  <text x="500" y="30" text-anchor="middle" font-size="22" font-weight="700" fill="#0f172a">LLM Gateway - architecture</text>
+
+  <!-- clients -->
+  <text x="40" y="68" font-size="13" font-weight="700" fill="#64748b">1  CLIENTS</text>
+  <rect x="200" y="78" width="170" height="46" rx="8" fill="#e0f2fe" stroke="#0284c7"/><text x="285" y="106" text-anchor="middle" font-size="14" fill="#0c4a6e">Chat / RAG app</text>
+  <rect x="415" y="78" width="170" height="46" rx="8" fill="#e0f2fe" stroke="#0284c7"/><text x="500" y="106" text-anchor="middle" font-size="14" fill="#0c4a6e">Agents / workers</text>
+  <rect x="630" y="78" width="170" height="46" rx="8" fill="#e0f2fe" stroke="#0284c7"/><text x="715" y="106" text-anchor="middle" font-size="14" fill="#0c4a6e">Batch jobs</text>
+  <line x1="285" y1="124" x2="450" y2="162" stroke="#475569" stroke-width="1.6" marker-end="url(#a)"/>
+  <line x1="500" y1="124" x2="500" y2="162" stroke="#475569" stroke-width="1.6" marker-end="url(#a)"/>
+  <line x1="715" y1="124" x2="550" y2="162" stroke="#475569" stroke-width="1.6" marker-end="url(#a)"/>
+
+  <!-- gateway -->
+  <text x="40" y="160" font-size="13" font-weight="700" fill="#64748b">2  EDGE</text>
+  <rect x="250" y="168" width="500" height="62" rx="10" fill="#ede9fe" stroke="#7c3aed"/>
+  <text x="500" y="195" text-anchor="middle" font-size="16" font-weight="700" fill="#4c1d95">API gateway</text>
+  <text x="500" y="216" text-anchor="middle" font-size="12.5" fill="#4c1d95">virtual keys per team - auth - token-bucket rate limit</text>
+  <line x1="500" y1="230" x2="500" y2="258" stroke="#475569" stroke-width="1.6" marker-end="url(#a)"/>
+
+  <!-- policy -->
+  <text x="40" y="262" font-size="13" font-weight="700" fill="#64748b">3  POLICY</text>
+  <rect x="250" y="262" width="500" height="62" rx="10" fill="#fef3c7" stroke="#d97706"/>
+  <text x="500" y="289" text-anchor="middle" font-size="16" font-weight="700" fill="#78350f">Policy layer</text>
+  <text x="500" y="310" text-anchor="middle" font-size="12.5" fill="#78350f">PII redaction - prompt-injection checks - model allow-list</text>
+  <line x1="500" y1="324" x2="500" y2="352" stroke="#475569" stroke-width="1.6" marker-end="url(#a)"/>
+
+  <!-- router -->
+  <text x="40" y="364" font-size="13" font-weight="700" fill="#64748b">4  ROUTING</text>
+  <rect x="330" y="356" width="340" height="86" rx="10" fill="#dcfce7" stroke="#16a34a"/>
+  <text x="500" y="386" text-anchor="middle" font-size="16" font-weight="700" fill="#14532d">Router</text>
+  <text x="500" y="408" text-anchor="middle" font-size="12.5" fill="#14532d">pick model by task, quality, latency, cost</text>
+  <text x="500" y="427" text-anchor="middle" font-size="12.5" fill="#14532d">retry - fallback - circuit breaker</text>
+
+  <!-- cache -->
+  <rect x="60" y="366" width="190" height="66" rx="10" fill="#fce7f3" stroke="#db2777"/>
+  <text x="155" y="394" text-anchor="middle" font-size="14" font-weight="700" fill="#831843">Cache</text>
+  <text x="155" y="414" text-anchor="middle" font-size="12" fill="#831843">exact + semantic (per tenant)</text>
+  <line x1="330" y1="399" x2="252" y2="399" stroke="#475569" stroke-width="1.6" marker-start="url(#a)" marker-end="url(#a)"/>
+
+  <!-- quota store -->
+  <rect x="750" y="366" width="190" height="66" rx="10" fill="#fce7f3" stroke="#db2777"/>
+  <text x="845" y="394" text-anchor="middle" font-size="14" font-weight="700" fill="#831843">Quota store (Redis)</text>
+  <text x="845" y="414" text-anchor="middle" font-size="12" fill="#831843">budgets - token counters</text>
+  <line x1="670" y1="399" x2="748" y2="399" stroke="#475569" stroke-width="1.6" marker-start="url(#a)" marker-end="url(#a)"/>
+
+  <!-- providers -->
+  <text x="40" y="498" font-size="13" font-weight="700" fill="#64748b">5  PROVIDERS</text>
+  <line x1="420" y1="442" x2="285" y2="488" stroke="#475569" stroke-width="1.6" marker-end="url(#a)"/>
+  <line x1="500" y1="442" x2="500" y2="488" stroke="#475569" stroke-width="1.6" marker-end="url(#a)"/>
+  <line x1="580" y1="442" x2="715" y2="488" stroke="#475569" stroke-width="1.6" marker-end="url(#a)"/>
+  <rect x="200" y="490" width="170" height="52" rx="8" fill="#f1f5f9" stroke="#475569"/><text x="285" y="513" text-anchor="middle" font-size="14" fill="#0f172a">Anthropic</text><text x="285" y="531" text-anchor="middle" font-size="11.5" fill="#475569">adapter</text>
+  <rect x="415" y="490" width="170" height="52" rx="8" fill="#f1f5f9" stroke="#475569"/><text x="500" y="513" text-anchor="middle" font-size="14" fill="#0f172a">OpenAI</text><text x="500" y="531" text-anchor="middle" font-size="11.5" fill="#475569">adapter</text>
+  <rect x="630" y="490" width="170" height="52" rx="8" fill="#f1f5f9" stroke="#475569"/><text x="715" y="513" text-anchor="middle" font-size="14" fill="#0f172a">Self-hosted (vLLM)</text><text x="715" y="531" text-anchor="middle" font-size="11.5" fill="#475569">adapter</text>
+
+  <!-- usage pipeline -->
+  <text x="40" y="598" font-size="13" font-weight="700" fill="#64748b">6  USAGE</text>
+  <rect x="230" y="600" width="170" height="52" rx="8" fill="#ffedd5" stroke="#ea580c"/><text x="315" y="622" text-anchor="middle" font-size="14" font-weight="700" fill="#7c2d12">Kafka</text><text x="315" y="640" text-anchor="middle" font-size="11.5" fill="#7c2d12">one event per call (async)</text>
+  <rect x="470" y="600" width="140" height="52" rx="8" fill="#ffedd5" stroke="#ea580c"/><text x="540" y="630" text-anchor="middle" font-size="13.5" fill="#7c2d12">Cost store</text>
+  <rect x="640" y="600" width="140" height="52" rx="8" fill="#ffedd5" stroke="#ea580c"/><text x="710" y="630" text-anchor="middle" font-size="13.5" fill="#7c2d12">Audit log</text>
+  <rect x="810" y="600" width="140" height="52" rx="8" fill="#ffedd5" stroke="#ea580c"/><text x="880" y="630" text-anchor="middle" font-size="13.5" fill="#7c2d12">Dashboards</text>
+  <line x1="400" y1="626" x2="468" y2="626" stroke="#475569" stroke-width="1.6" marker-end="url(#a)"/>
+  <line x1="610" y1="626" x2="638" y2="626" stroke="#475569" stroke-width="1.6" marker-end="url(#a)"/>
+  <line x1="780" y1="626" x2="808" y2="626" stroke="#475569" stroke-width="1.6" marker-end="url(#a)"/>
+  <path d="M845,432 L845,470 L960,470 L960,575 L315,575 L315,598" fill="none" stroke="#94a3b8" stroke-width="1.4" stroke-dasharray="5 4" marker-end="url(#a)"/>
+  <text x="960" y="568" text-anchor="end" font-size="11" fill="#64748b">usage events (off the request path)</text>
+
+  <text x="500" y="688" text-anchor="middle" font-size="12" fill="#64748b">Remember: tenant in every cache key - count tokens not requests - fall back only before the first token</text>
+</svg>
